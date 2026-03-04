@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:7
+    container_name: x-institute-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: x-institute-api
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/x-institute
+      - JWT_SECRET=supersecret
+      - JWT_EXPIRES=1d
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin123
+
+  frontend:
+    build: ./frontend
+    container_name: x-institute-ui
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
