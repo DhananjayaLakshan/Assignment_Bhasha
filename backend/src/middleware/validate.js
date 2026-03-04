@@ -1,13 +1,17 @@
-const validate = (schema) => (req, res, next) => {
-    const { error } = schema.validate(req.body, { abortEarly: false });
+const ApiError = require("../utils/ApiError");
+
+const validate = (schema) => (req, _res, next) => {
+    const { error, value } = schema.validate(req.body, {
+        abortEarly: false,
+        stripUnknown: true,
+    });
 
     if (error) {
-        return res.status(400).json({
-            success: false,
-            message: error.details.map((d) => d.message)
-        });
+        const details = error.details.map((d) => d.message);
+        return next(new ApiError(400, details.join(", ")));
     }
 
+    req.body = value;
     next();
 };
 
