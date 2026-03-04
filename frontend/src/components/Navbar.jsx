@@ -7,7 +7,7 @@ export default function Navbar() {
 
     const logout = () => {
         localStorage.removeItem("token");
-        navigate("/");
+        window.location.href = "/";
         setIsOpen(false); // Ensure the mobile menu closes on logout
     };
 
