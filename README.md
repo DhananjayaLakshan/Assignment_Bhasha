@@ -141,23 +141,40 @@ GET | /api/students/:id | Get student details |
 # Project Structure
 project-root
 │
+
 ├── backend
+
 │ ├── src
+
 │ │ ├── config
+
 │ │ ├── middleware
+
 │ │ ├── modules
+
 │ │ │ ├── auth
+
 │ │ │ ├── students
+
 │ │ │ └── courses
+
 │ │ ├── utils
+
 │ │ └── server.js
+
 │
 ├── frontend
+
 │ ├── src
+
 │ │ ├── api
+
 │ │ ├── components
+
 │ │ ├── pages
+
 │ │ └── App.jsx
+
 │
 └── README.md
 
@@ -185,10 +202,15 @@ npm install
 Create `.env` file
 
 PORT=4000
+
 MONGO_URI=mongodb://localhost:27017/x-institute
+
 JWT_SECRET=supersecret
+
 JWT_EXPIRES=1d
+
 ADMIN_USERNAME=admin
+
 ADMIN_PASSWORD=admin123
 
 
