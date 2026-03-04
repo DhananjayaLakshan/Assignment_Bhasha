@@ -6,11 +6,28 @@ const createStudent = async (payload) => {
 };
 
 const listStudents = async ({ q, page, limit }) => {
+
     const filter = {};
 
     if (q) {
         const re = new RegExp(q, "i");
-        filter.$or = [{ firstName: re }, { lastName: re }, { contactNumber: re }];
+
+        filter.$or = [
+            { firstName: re },
+            { lastName: re },
+            { contactNumber: re },
+
+            // FULL NAME SEARCH (first + last)
+            {
+                $expr: {
+                    $regexMatch: {
+                        input: { $concat: ["$firstName", " ", "$lastName"] },
+                        regex: q,
+                        options: "i"
+                    }
+                }
+            }
+        ];
     }
 
     const skip = (page - 1) * limit;
@@ -22,6 +39,7 @@ const listStudents = async ({ q, page, limit }) => {
             .skip(skip)
             .limit(limit)
             .lean(),
+
         Student.countDocuments(filter),
     ]);
 
@@ -35,7 +53,13 @@ const listStudents = async ({ q, page, limit }) => {
 };
 
 const getStudentById = async (id) => {
-    return Student.findById(id).populate("courseId").lean();
+    return Student.findById(id)
+        .populate("courseId")
+        .lean();
 };
 
-module.exports = { createStudent, listStudents, getStudentById };
+module.exports = {
+    createStudent,
+    listStudents,
+    getStudentById
+};
