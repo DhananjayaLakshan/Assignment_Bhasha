@@ -1,0 +1,122 @@
+Deployment Instructions
+Option 1 — Run Locally (Recommended for Development)
+Backend Setup
+
+Navigate to backend directory:
+
+cd backend
+
+Install dependencies:
+
+npm install
+
+Create .env file:
+
+PORT=4000
+MONGO_URI=mongodb://localhost:27017/x-institute
+JWT_SECRET=supersecret
+JWT_EXPIRES=1d
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin123
+
+Seed the admin user:
+
+npm run seed:admin
+
+Start the backend server:
+
+npm run dev
+
+Backend API will run on:
+
+http://localhost:4000
+Frontend Setup
+
+Navigate to frontend directory:
+
+cd frontend
+
+Install dependencies:
+
+npm install
+
+Run development server:
+
+npm run dev
+
+Frontend will run on:
+
+http://localhost:5173
+Option 2 — Docker Deployment
+
+Ensure Docker is installed.
+
+Check Docker installation:
+
+docker --version
+Run Entire Application
+
+From project root run:
+
+docker-compose up --build
+
+This will start:
+
+Service	Port
+MongoDB	27017
+Backend API	4000
+Frontend UI	5173
+Access Application
+
+Frontend:
+
+http://localhost:5173
+
+Backend API:
+
+http://localhost:4000
+Stop Containers
+docker-compose down
+Seed Admin User
+
+Default login credentials:
+
+Username: admin
+Password: admin123
+API Testing
+
+Example login request:
+
+POST /api/auth/login
+
+Request body:
+
+{
+  "username":"admin",
+  "password":"admin123"
+}
+Production Notes
+
+For production environments:
+
+Use environment variables for secrets
+
+Use HTTPS
+
+Enable database authentication
+
+Use Docker containers for consistent deployment
+
+Final Project Structure
+project-root
+│
+├── backend
+│   ├── src
+│   ├── Dockerfile
+│
+├── frontend
+│   ├── src
+│   ├── Dockerfile
+│
+├── docker-compose.yml
+└── README.md
