@@ -311,11 +311,4 @@ All errors follow a consistent JSON structure:
 - UI improvements and pagination controls
 - Docker deployment
 
----
-
-# Author
-
-Student Name: *[Your Name]*  
-Assignment: Bhasha Practical Exam – Full Stack Development  
-Technology: MERN Stack
 
