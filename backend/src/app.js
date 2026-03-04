@@ -15,7 +15,8 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.json());
+
+app.use(express.json());   // THIS IS REQUIRED
 
 app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
